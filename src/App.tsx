@@ -73,6 +73,20 @@ function App() {
         setTodolist([newTodolist, ...todolist])
         setTasks({...tasks, [newTodolist.todolistId]: []})
     }
+    const changeCallback = (taskID: string, newTitle: string, todolistId: string) => {
+        const chengedTask = tasks[todolistId].find(t => t.id === taskID)
+        if (chengedTask) {
+            chengedTask.title = newTitle
+            setTasks({...tasks})
+        }
+    }
+    const changeTodolistTitle = (todolistId: string, title: string) => {
+      const changedTodolist = todolist.find(t => t.todolistId === todolistId)
+        if (changedTodolist){
+            changedTodolist.title = title
+            setTodolist([...todolist])
+        }
+    }
 
 
     // GUI (CRUD):
@@ -101,6 +115,8 @@ function App() {
                         changeTaskStatus={changeTaskStatus}
                         addTask={addTask}
                         removeTodolist={removeTodolist}
+                        changeCallback={changeCallback}
+                        changeTodolistTitle={changeTodolistTitle}
                     />
                 )
             })}

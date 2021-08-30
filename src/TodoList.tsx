@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from "react";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 type TodoListPropsType = {
     id: string
@@ -12,6 +13,8 @@ type TodoListPropsType = {
     changeTaskStatus: (taskID: string, isDone: boolean, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
     removeTodolist: (todolistId: string) => void
+    changeCallback: (taskID: string, newTitle: string, todolistId: string)=> void
+    changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
 export type TaskType = {
@@ -32,13 +35,16 @@ function TodoList(props: TodoListPropsType) {
 
     const removeTodolistHandler = () => props.removeTodolist(props.id)
     const addTask = (title: string) => {
-      props.addTask(title, props.id)
+        props.addTask(title, props.id)
+    }
+    const changeTodolistTitle = (title: string) => {
+        props.changeTodolistTitle(props.id, title)
     }
 
     // JSX
     return (
         <div>
-            <h3>{props.title}
+            <h3><EditableSpan title={props.title} changeCallback={changeTodolistTitle}/>
                 <button onClick={removeTodolistHandler}>X</button>
             </h3>
             <AddItemForm addItem={addTask}/>
@@ -47,6 +53,8 @@ function TodoList(props: TodoListPropsType) {
                     const removeTask = () => props.removeTask(t.id, props.id)
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
                         props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)
+                    const changeCallback= (newTitle: string)=>
+                        props.changeCallback(t.id, newTitle, props.id)
                     return (
                         <li key={t.id}>
                             <input
@@ -54,7 +62,7 @@ function TodoList(props: TodoListPropsType) {
                                 checked={t.isDone}
                                 onChange={changeTaskStatus}
                             />
-                            <span>{t.title}</span>
+                            <EditableSpan title={t.title} changeCallback={changeCallback}/>
                             <button onClick={removeTask}>X</button>
                         </li>
                     )
