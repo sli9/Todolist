@@ -11,15 +11,14 @@ import {
     Typography
 } from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {useSelector} from 'react-redux'
-import {Route} from 'react-router-dom'
-import {Login} from '../features/Auth/Login'
+import {Redirect, Route} from 'react-router-dom'
 import {selectIsInitialaized, selectStatus} from "../features/Application/selectors";
-import {authActions, authSelectors} from "../features/Auth";
+import {authActions, authSelectors, Login} from "../features/Auth";
 import {useActions} from "../utils/redux-utils";
 import {appActions} from "../features/Application";
+import {TodolistsList} from "../features/TodolistsList";
 
 type PropsType = {
     demo?: boolean
@@ -34,11 +33,14 @@ function App({demo = false}: PropsType) {
     const {initializeApp} = useActions(appActions)
 
     useEffect(() => {
-        initializeApp()
+        if (!demo) {
+            initializeApp()
+        }
     }, [])
 
     const logoutHandler = useCallback(() => {
         logout()
+        return <Redirect to={"/Todolist"}/>
     }, [])
 
     if (!isInitialized) {
@@ -64,7 +66,7 @@ function App({demo = false}: PropsType) {
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
-                <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                <Route path={'/Todolist'} render={() => <TodolistsList demo={demo}/>}/>
                 <Route path={'/login'} render={() => <Login/>}/>
             </Container>
         </div>
