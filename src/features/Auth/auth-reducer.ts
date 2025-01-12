@@ -4,6 +4,8 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {appActions} from "../CommonActions/App";
 import {FieldErrorType, LoginParamsType} from "../../api/types";
 import {AxiosError} from "axios";
+import {clearTasks} from "../TodolistsList/tasks-reducer";
+import {clearTodolists} from "../TodolistsList/todolists-reducer";
 
 const {setAppStatus} = appActions
 
@@ -15,6 +17,7 @@ export const login = createAsyncThunk<undefined, LoginParamsType, {
         const res = await authAPI.login(data)
         if (res.data.resultCode === 0) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
+            localStorage.setItem('sn-token', res.data.data.token)
             return
         } else {
             return handleAsyncServerAppError(res.data, thunkAPI)
@@ -30,6 +33,9 @@ export const logout = createAsyncThunk('auth/logout', async (param, thunkAPI) =>
         const res = await authAPI.logout()
         if (res.data.resultCode === 0) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
+            thunkAPI.dispatch(clearTasks())
+            thunkAPI.dispatch(clearTodolists())
+            localStorage.removeItem('sn-token')
             return
         } else {
             return handleAsyncServerAppError(res.data, thunkAPI)

@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from 'react'
 import {AddItemForm, AddItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm'
-import {Button, IconButton, Paper, PropTypes} from '@material-ui/core'
-import {Delete} from '@material-ui/icons'
 import {Task} from './Task/Task'
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'
 import {useActions, useAppDispatch} from "../../../utils/redux-utils";
 import {tasksActions, todolistsActions} from "../index";
 import {TaskStatuses, TaskType} from "../../../api/types";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
+import {Button, IconButton, Paper} from "@mui/material";
+import {Delete} from "@mui/icons-material";
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -69,11 +69,12 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
     }
 
     const renderFilterButton = (buttonFilter: FilterValuesType,
-                                color: PropTypes.Color,
+                                color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning",
                                 text: string) => {
         return <Button variant={props.todolist.filter === buttonFilter ? 'outlined' : 'text'}
                        onClick={() => onFilterButtonClickHandler(buttonFilter)}
-                       color={color}>{text}
+                       color={color}
+        >{text}
         </Button>
     }
 
@@ -96,7 +97,7 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
             {!tasksForTodolist.length && <div style={{padding: '10px', color: 'grey'}}>No task</div>}
         </div>
         <div style={{paddingTop: '10px'}}>
-            {renderFilterButton('all', 'default', 'All')}
+            {renderFilterButton('all', 'primary', 'All')}
             {renderFilterButton('active', 'primary', 'Active')}
             {renderFilterButton('completed', 'secondary', 'Completed')}
         </div>

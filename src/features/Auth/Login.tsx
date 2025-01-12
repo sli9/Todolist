@@ -1,12 +1,12 @@
 import React from 'react'
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@material-ui/core'
 import {FormikHelpers, useFormik} from 'formik'
 import {useSelector} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import {selectIsLoggedIn} from "./selectors";
 import {authActions} from "./index";
 import {login} from "./auth-reducer";
 import {useAppDispatch} from "../../utils/redux-utils";
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 
 type FormikValuesType = {
     email: string,
@@ -50,18 +50,18 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Redirect to={"/Todolist"}/>
+        return <Navigate to={"/Todolist"}/>
     }
 
 
-    return <Grid container justify="center">
+    return <Grid container justifyContent={'center'}>
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel>
                         <p>
                             To log in get registered <a href={'https://social-network.samuraijs.com/'}
-                                                        target={'_blank'}>here</a>
+                                                        target={'_blank'} rel={'noopener'}>here</a>
                         </p>
                         <p>
                             or use common test account credentials:

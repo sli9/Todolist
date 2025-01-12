@@ -13,7 +13,9 @@ const tasksActions = {
 
 
 const tasksReducer = tasksSlice.reducer
+const tasksSliceForStore = tasksSlice
 const todolistsReducer = todolistsSlice.reducer
+const todolistsSliceForStore = todolistsSlice
 
 export {
     tasksReducer,
@@ -21,4 +23,6 @@ export {
     todolistsReducer,
     todolistsActions,
     TodolistsList,
+    tasksSliceForStore,
+    todolistsSliceForStore,
 }

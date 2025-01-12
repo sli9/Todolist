@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {TasksStateType} from './tasks-reducer'
-import {Grid, Paper} from '@material-ui/core'
 import {AddItemForm, AddItemFormSubmitHelperType} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
-import {Redirect} from 'react-router-dom'
 import {selectIsLoggedIn} from "../Auth/selectors";
 import {useActions, useAppDispatch} from "../../utils/redux-utils";
 import {todolistsActions} from "./index";
 import {AppRootStateType} from "../../utils/types";
 import {TodolistDomainType} from "./todolists-reducer";
+import {Navigate} from "react-router-dom";
+import {Grid, Paper} from "@mui/material";
 
 type PropsType = {
     demo?: boolean
@@ -33,7 +33,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                 const errorMessage = resultAction.payload?.errors[0]
                 helper.setError(errorMessage)
             } else {
-                helper.setError('Some errer occured')
+                helper.setError('Some error occurred')
             }
         } else {
             helper.setTitle('')
@@ -49,7 +49,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
 
     if (!isLoggedIn) {
-        return <Redirect to={"/login"}/>
+        return <Navigate to={"/login"}/>
     }
 
     return <>

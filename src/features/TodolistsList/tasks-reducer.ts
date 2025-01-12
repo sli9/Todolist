@@ -92,7 +92,9 @@ export const asyncActions = {
 export const slice = createSlice({
     name: 'tasks',
     initialState,
-    reducers: {},
+    reducers: create => ({
+        clearTasks: create.reducer(() => {return {}})
+    }),
     extraReducers: (builder) => {
         builder.addCase(asyncTodolistsActions.addTodolistTC.fulfilled, (state, action) => {
             state[action.payload.todolist.id] = []
@@ -129,6 +131,8 @@ export const slice = createSlice({
             })
     }
 })
+
+export const {clearTasks} = slice.actions
 
 
 // types

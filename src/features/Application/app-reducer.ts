@@ -6,6 +6,7 @@ import {appActions} from "../CommonActions/App";
 const initializeApp = createAsyncThunk('app/initializeApp', async (param, {dispatch}) => {
     const res = await authAPI.me()
     if (res.data.resultCode === 0) {
+        console.log(res)
         dispatch(setIsLoggedIn({value: true}));
     } else {
 
