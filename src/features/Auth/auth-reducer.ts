@@ -2,10 +2,11 @@ import {authAPI} from '../../api/todolists-api'
 import {handleAsyncServerAppError, handleAsyncServerNetworkError,} from '../../utils/error-utils'
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {appActions} from "../CommonActions/App";
-import {FieldErrorType, LoginParamsType} from "../../api/types";
+import {LoginParamsType} from "../../api/types";
 import {AxiosError} from "axios";
 import {clearTasks} from "../TodolistsList/tasks-reducer";
 import {clearTodolists} from "../TodolistsList/todolists-reducer";
+import {FieldErrorType} from "common/types";
 
 const {setAppStatus} = appActions
 

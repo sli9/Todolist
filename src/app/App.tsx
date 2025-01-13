@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react'
-import './App.css'
 import {useSelector} from 'react-redux'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {selectIsInitialaized, selectStatus} from "../features/Application/selectors";
@@ -19,6 +18,7 @@ import {
     Typography
 } from "@mui/material";
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
+import s from './App.module.css'
 
 type PropsType = {
     demo?: boolean
@@ -44,9 +44,8 @@ function App({demo = false}: PropsType) {
     }, [])
 
     if (!isInitialized) {
-        return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
+        return <div className={s.circularProgressContainer}>
+            <CircularProgress size={150} thickness={2}/>
         </div>
     }
 

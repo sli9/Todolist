@@ -6,6 +6,7 @@ import {AxiosError} from "axios";
 import {appActions} from "../CommonActions/App";
 import {ThunkError} from "../../utils/types";
 import {TodolistType} from "../../api/types";
+import {DomainTodolist} from "./lib/types";
 
 const {setAppStatus} = appActions
 
@@ -87,7 +88,7 @@ export const asyncAcyions = {
 
 export const slice = createSlice({
     name: 'todolists',
-    initialState: [] as Array<TodolistDomainType>,
+    initialState: [] as Array<DomainTodolist>,
     reducers: create => ({
         changeTodolistFilter: create.reducer((state, action: PayloadAction<{
             id: string,
@@ -101,7 +102,7 @@ export const slice = createSlice({
             status: RequestStatusType
         }>) => {
             const index = state.findIndex(tl => tl.id === action.payload.id)
-            state[index].entityStatus = action.payload.status
+            state[index].todolistStatus = action.payload.status
         }),
         clearTodolists: create.reducer(() => {
             return []
@@ -109,7 +110,7 @@ export const slice = createSlice({
     }),
     extraReducers: builder => {
         builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
-            return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+            return action.payload.todolists.map(tl => ({...tl, filter: 'all', todolistStatus: 'idle'}))
         })
             .addCase(removeTodolistTC.fulfilled, (state, action) => {
                 const index = state.findIndex(tl => tl.id === action.payload.id)
@@ -118,7 +119,7 @@ export const slice = createSlice({
                 }
             })
             .addCase(addTodolistTC.fulfilled, (state, action) => {
-                state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
+                state.unshift({...action.payload.todolist, filter: 'all', todolistStatus: 'idle'})
             })
             .addCase(changeTodolistTitleTC.fulfilled, (state, action) => {
                 const index = state.findIndex(tl => tl.id === action.payload.id)
@@ -133,8 +134,4 @@ export const {
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
-export type TodolistDomainType = TodolistType & {
-    filter: FilterValuesType
-    entityStatus: RequestStatusType
-}
 

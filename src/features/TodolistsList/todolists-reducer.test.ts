@@ -2,23 +2,23 @@ import {
     changeTodolistEntityStatus,
     changeTodolistFilter,
     FilterValuesType,
-    TodolistDomainType,
 } from './todolists-reducer'
 import {v1} from 'uuid'
 import {RequestStatusType} from '../Application/app-reducer'
 import {todolistsActions, todolistsReducer} from "./index";
 import {TodolistType} from "../../api/types";
+import {DomainTodolist} from "./lib/types";
 
 let todolistId1: string
 let todolistId2: string
-let startState: Array<TodolistDomainType> = []
+let startState: Array<DomainTodolist> = []
 
 beforeEach(() => {
     todolistId1 = v1()
     todolistId2 = v1()
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all', entityStatus: 'idle', addedDate: '', order: 0},
-        {id: todolistId2, title: 'What to buy', filter: 'all', entityStatus: 'idle', addedDate: '', order: 0}
+        {id: todolistId1, title: 'What to learn', filter: 'all', todolistStatus: 'idle', addedDate: '', order: 0},
+        {id: todolistId2, title: 'What to buy', filter: 'all', todolistStatus: 'idle', addedDate: '', order: 0}
     ]
 })
 
@@ -84,8 +84,8 @@ test('correct entity status of todolist should be changed', () => {
 
     const endState = todolistsReducer(startState, action)
 
-    expect(endState[0].entityStatus).toBe('idle')
-    expect(endState[1].entityStatus).toBe(newStatus)
+    expect(endState[0].todolistStatus).toBe('idle')
+    expect(endState[1].todolistStatus).toBe(newStatus)
 })
 
 

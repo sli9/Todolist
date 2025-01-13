@@ -7,16 +7,16 @@ import {selectIsLoggedIn} from "../Auth/selectors";
 import {useActions, useAppDispatch} from "../../utils/redux-utils";
 import {todolistsActions} from "./index";
 import {AppRootStateType} from "../../utils/types";
-import {TodolistDomainType} from "./todolists-reducer";
 import {Navigate} from "react-router-dom";
 import {Grid, Paper} from "@mui/material";
+import {DomainTodolist} from "./lib/types";
 
 type PropsType = {
     demo?: boolean
 }
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<DomainTodolist>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 

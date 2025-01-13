@@ -1,22 +1,23 @@
 import React, {useCallback, useEffect} from 'react'
 import {AddItemForm, AddItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm'
-import {Task} from './Task/Task'
-import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'
+import {FilterValuesType} from '../todolists-reducer'
 import {useActions, useAppDispatch} from "../../../utils/redux-utils";
 import {tasksActions, todolistsActions} from "../index";
-import {TaskStatuses, TaskType} from "../../../api/types";
-import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {TaskType} from "../api/tasksApi.types";
+import {TaskStatuses} from "common/enums";
+import {EditAbleSpan} from "common/components/EditableSpan/EditableSpan";
+import {Tasks} from "../ui/todolists/todolist/tasks/Tasks";
+import {DomainTodolist} from "../lib/types";
 
 type PropsType = {
-    todolist: TodolistDomainType
+    todolist: DomainTodolist
     tasks: Array<TaskType>
     demo?: boolean
 }
 
 export const Todolist = React.memo(function ({demo = false, ...props}: PropsType) {
-    const {fetchTasks} = useActions(tasksActions)
     const {changeTodolistFilter, removeTodolistTC, changeTodolistTitleTC} = useActions(todolistsActions)
 
     const dispatch = useAppDispatch()
@@ -25,7 +26,6 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
         if (demo) {
             return
         }
-        fetchTasks(props.todolist.id)
     }, [])
 
     const addTaskCallback = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
@@ -81,20 +81,17 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
     return <Paper style={{padding: '10px', position: 'relative'}}>
         <IconButton
             size={'small'}
-            onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}
+            onClick={removeTodolist} disabled={props.todolist.todolistStatus === 'loading'}
             style={{position: 'absolute', right: '5px', top: '5px'}}
         >
             <Delete fontSize={'small'}/>
         </IconButton>
         <h3>
-            <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+            <EditAbleSpan title={props.todolist.title} changeTitle={changeTodolistTitle}/>
         </h3>
-        <AddItemForm addItem={addTaskCallback} disabled={props.todolist.entityStatus === 'loading'}/>
+        <AddItemForm addItem={addTaskCallback} disabled={props.todolist.todolistStatus === 'loading'}/>
         <div>
-            {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}/>)
-            }
-            {!tasksForTodolist.length && <div style={{padding: '10px', color: 'grey'}}>No task</div>}
+            <Tasks todolist={props.todolist}/>
         </div>
         <div style={{paddingTop: '10px'}}>
             {renderFilterButton('all', 'primary', 'All')}

@@ -1,12 +1,12 @@
-import {ResponseType} from '../api/types'
 import {appActions} from "../features/CommonActions/App";
+import {BaseResponse} from "common/types";
 
 type ThunkAPIType = {
     dispatch: (action: any) => any
     rejectWithValue: Function
 }
 
-export const handleAsyncServerAppError = <D>(data: ResponseType<D>, thunkAPI: ThunkAPIType, showError = true) => {
+export const handleAsyncServerAppError = <D>(data: BaseResponse<D>, thunkAPI: ThunkAPIType, showError = true) => {
     if (showError) {
         thunkAPI.dispatch(appActions.setAppError({error: data.messages.length ? data.messages[0] : 'Some error occurred'}))
     }
