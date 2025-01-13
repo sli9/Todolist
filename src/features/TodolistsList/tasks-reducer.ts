@@ -2,7 +2,7 @@ import {todolistsAPI} from '../../api/todolists-api'
 import {handleAsyncServerAppError, handleAsyncServerNetworkError} from '../../utils/error-utils'
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
-import {AppRootStateType, ThunkError} from "../../utils/types";
+import {ThunkError} from "../../utils/types";
 import {appActions} from "../CommonActions/App";
 import {asyncAcyions as asyncTodolistsActions} from "./todolists-reducer";
 import {TaskType} from "./api/tasksApi.types";
@@ -91,7 +91,9 @@ export const slice = createSlice({
     name: 'tasks',
     initialState,
     reducers: create => ({
-        clearTasks: create.reducer(() => {return {}})
+        clearTasks: create.reducer(() => {
+            return {}
+        })
     }),
     extraReducers: (builder) => {
         builder.addCase(asyncTodolistsActions.addTodolistTC.fulfilled, (state, action) => {
@@ -118,15 +120,15 @@ export const slice = createSlice({
             .addCase(addTask.fulfilled, (state, action) => {
                 state[action.payload.todoListId].unshift(action.payload)
             })
-            // .addCase(updateTask.fulfilled, (state, action) => {
-            //     if (action.payload) {
-            //         const tasks = state[action.payload.todolistId]
-            //         const index = tasks.findIndex(t => t.id === action.payload?.taskId)
-            //         if (index > -1) {
-            //             tasks[index] = {...tasks[index], ...action.payload.model}
-            //         }
-            //     }
-            // })
+        // .addCase(updateTask.fulfilled, (state, action) => {
+        //     if (action.payload) {
+        //         const tasks = state[action.payload.todolistId]
+        //         const index = tasks.findIndex(t => t.id === action.payload?.taskId)
+        //         if (index > -1) {
+        //             tasks[index] = {...tasks[index], ...action.payload.model}
+        //         }
+        //     }
+        // })
     }
 })
 

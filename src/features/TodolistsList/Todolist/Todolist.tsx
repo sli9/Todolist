@@ -59,15 +59,6 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
     }), [props.todolist.id])
 
 
-    let tasksForTodolist = props.tasks
-
-    if (props.todolist.filter === 'active') {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New)
-    }
-    if (props.todolist.filter === 'completed') {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
-    }
-
     const renderFilterButton = (buttonFilter: FilterValuesType,
                                 color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning",
                                 text: string) => {

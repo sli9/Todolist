@@ -1,5 +1,5 @@
-import {TaskPriorities, TaskStatuses} from "../../../common/enums";
-import {RequestStatus} from "../../../common/types";
+import {TaskPriorities, TaskStatuses} from "common/enums";
+import {RequestStatus} from "common/types";
 
 export type GetTasksResponse = {
     items: DomainTask[]
