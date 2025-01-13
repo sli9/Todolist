@@ -4,9 +4,8 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {appActions} from "../CommonActions/App";
 import {LoginParamsType} from "../../api/types";
 import {AxiosError} from "axios";
-import {clearTasks} from "../TodolistsList/tasks-reducer";
-import {clearTodolists} from "../TodolistsList/todolists-reducer";
 import {FieldErrorType} from "common/types";
+import {baseApi} from "../../app/baseApi";
 
 const {setAppStatus} = appActions
 
@@ -34,8 +33,7 @@ export const logout = createAsyncThunk('auth/logout', async (param, thunkAPI) =>
         const res = await authAPI.logout()
         if (res.data.resultCode === 0) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-            thunkAPI.dispatch(clearTasks())
-            thunkAPI.dispatch(clearTodolists())
+            thunkAPI.dispatch(baseApi.util.invalidateTags(['Todolist', 'Task']))
             localStorage.removeItem('sn-token')
             return
         } else {

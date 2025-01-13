@@ -5,7 +5,6 @@ import {selectIsInitialaized, selectStatus} from "../features/Application/select
 import {authActions, authSelectors, Login} from "../features/Auth";
 import {useActions} from "../utils/redux-utils";
 import {appActions} from "../features/Application";
-import {TodolistsList} from "../features/TodolistsList";
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     AppBar,
@@ -17,8 +16,9 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
-import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import s from './App.module.css'
+import {Main} from "./Main";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 type PropsType = {
     demo?: boolean
@@ -60,13 +60,13 @@ function App({demo = false}: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                            {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+                    {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
                 <Routes>
-                    <Route path={'/Todolist'} element={<TodolistsList demo={demo}/>}/>
+                    <Route path={'/'} element={<Main/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </Container>
