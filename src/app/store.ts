@@ -1,12 +1,12 @@
-import {appReducer, appSlise} from '../features/Application'
 import {configureStore} from "@reduxjs/toolkit";
-import {baseApi} from "./baseApi";
 import {setupListeners} from "@reduxjs/toolkit/query";
+import {appReducer, appSlice} from "./appSlice";
+import {baseApi} from "./baseApi";
 
 
 export const store = configureStore({
     reducer: {
-        [appSlise.name]: appReducer,
+        [appSlice.name]: appReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),

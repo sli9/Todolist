@@ -7,9 +7,9 @@ import {
   useUpdateTodolistTitleMutation,
 } from "../../../../api/todolistsApi"
 import { DomainTodolist } from "../../../../lib/types"
-import {useAppDispatch} from "../../../../../../utils/redux-utils";
 import {RequestStatus} from "common/types";
 import {EditAbleSpan} from "common/components/EditableSpan/EditableSpan";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
 
 type Props = {
   todolist: DomainTodolist

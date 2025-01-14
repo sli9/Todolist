@@ -1,6 +1,6 @@
 import {BaseQueryApi, FetchBaseQueryError, FetchBaseQueryMeta, QueryReturnValue} from "@reduxjs/toolkit/query"
-import {appActions} from "../../features/CommonActions/App";
 import {ResultCode} from "../enums";
+import {setAppError} from "../../app/appSlice";
 
 export const handleError = (
     api: BaseQueryApi,
@@ -26,12 +26,12 @@ export const handleError = (
                 error = JSON.stringify(result.error)
                 break
         }
-        api.dispatch(appActions.setAppError({ error }))
+        api.dispatch(setAppError({ error }))
     }
 
     if ((result.data as { resultCode: ResultCode }).resultCode === ResultCode.Error) {
         const messages = (result.data as { messages: string[] }).messages
         error = messages.length ? messages[0] : error
-        api.dispatch(appActions.setAppError({ error }))
+        api.dispatch(setAppError({ error }))
     }
 }

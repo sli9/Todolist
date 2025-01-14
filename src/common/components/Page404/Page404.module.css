@@ -1,0 +1,10 @@
+.title {
+    font-size: 250px;
+    margin: 0;
+}
+
+.subTitle {
+    font-size: 50px;
+    margin: 0;
+    text-transform: uppercase;
+}

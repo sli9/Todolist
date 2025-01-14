@@ -3,13 +3,13 @@ import { ChangeEvent } from "react"
 import { getListItemSx } from "./Task.styles"
 import { TaskRequestDataType, TaskType } from "../../../../../api/tasksApi.types"
 import { tasksApi, useRemoveTaskMutation, useUpdateTaskMutation } from "../../../../../api/tasksApi"
-import {useAppDispatch} from "../../../../../../../utils/redux-utils";
 import {RequestStatus} from "common/types";
 import {TaskStatuses} from "common/enums";
 import {DomainTodolist} from "../../../../../lib/types";
 import {Checkbox, IconButton, ListItem} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete"
 import {EditAbleSpan} from "common/components/EditableSpan/EditableSpan";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
 
 type Props = {
     todolist: DomainTodolist

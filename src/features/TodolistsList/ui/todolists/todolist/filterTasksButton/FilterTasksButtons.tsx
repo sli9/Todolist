@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 import { filterButtonsBoxSx } from "./FilterTasksButton.styles"
 import { todolistsApi } from "../../../../api/todolistsApi"
 import { DomainTodolist, FilterValuesType } from "../../../../lib/types"
-import {useAppDispatch} from "../../../../../../utils/redux-utils";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
 
 type Props = {
   todolist: DomainTodolist
