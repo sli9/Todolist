@@ -1,14 +1,14 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from "../../utils/types";
 import {useActions} from "../../utils/redux-utils";
 import {appActions} from "../../features/CommonActions/App";
 import {Alert, Snackbar} from "@mui/material";
+import {RootState} from "../../app/store";
 
 
 export function ErrorSnackbar() {
     //const [open, setOpen] = React.useState(true)
-    const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
+    const error = useSelector<RootState, string | null>(state => state.app.error);
     const {setAppError} = useActions(appActions)
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

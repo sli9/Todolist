@@ -1,10 +1,8 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {Navigate, Route, Routes} from 'react-router-dom'
-import {selectIsInitialaized, selectStatus} from "../features/Application/selectors";
-import {authActions, authSelectors, Login} from "../features/Auth";
-import {useActions} from "../utils/redux-utils";
-import {appActions} from "../features/Application";
+import {Route, Routes, useNavigate} from 'react-router-dom'
+import {selectStatus} from "../features/Application/selectors";
+import {useAppDispatch} from "../utils/redux-utils";
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     AppBar,
@@ -19,28 +17,48 @@ import {
 import s from './App.module.css'
 import {Main} from "./Main";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {Login} from "../features/Auth/ui/login/Login";
+import {useLogoutMutation, useMeQuery} from "../features/Auth/api/AuthApi";
+import {ResultCode} from "common/enums";
+import {selectIsLoggedIn, setIsLoggedIn} from "../features/Application/app-reducer";
+import {baseApi} from "./baseApi";
+import {useAppSelector} from "common/hooks/useAppSelector";
+import {Navigate} from "react-router";
 
-type PropsType = {
-    demo?: boolean
-}
 
-function App({demo = false}: PropsType) {
+function App() {
     const status = useSelector(selectStatus)
-    const isInitialized = useSelector(selectIsInitialaized)
-    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const [isInitialized, setIsInitialized] = useState<boolean>(false)
 
-    const {logout} = useActions(authActions)
-    const {initializeApp} = useActions(appActions)
+    const [logout] = useLogoutMutation()
+    const {data, isLoading} = useMeQuery()
+
+    const dispatch = useAppDispatch()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (!demo) {
-            initializeApp()
+        if (!isLoading) {
+            setIsInitialized(true)
+            if (data?.resultCode === ResultCode.Sucsess) {
+                dispatch(setIsLoggedIn({isLoggedIn: true}))
+            }
         }
-    }, [])
+    }, [isLoading, data])
 
     const logoutHandler = useCallback(() => {
         logout()
-        return <Navigate to={"/Todolist"}/>
+            .then(res => {
+                if (res.data?.resultCode === ResultCode.Sucsess) {
+                    dispatch(setIsLoggedIn({isLoggedIn: false}))
+                    localStorage.removeItem('sn-token')
+                }
+            })
+            .then(() => {
+                dispatch((baseApi.util.invalidateTags(['Task', 'Todolist'])))
+            })
+        navigate('/login')
     }, [])
 
     if (!isInitialized) {
@@ -65,9 +83,9 @@ function App({demo = false}: PropsType) {
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
+                {!isLoggedIn && <Login/>}
                 <Routes>
                     <Route path={'/'} element={<Main/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </Container>
         </div>
