@@ -7,7 +7,7 @@ import {Main} from "../../app/Main";
 import {Login} from "../../features/Authorization/ui/login/Login";
 
 export const Path = {
-  Main: "/",
+  Main: "Todolist",
   Login: "login",
   NotFound: "*",
 } as const

@@ -7,12 +7,12 @@ type MenuButtonType = {
 
 export const MenuButton = styled(Button)<MenuButtonType>(({ backgroundcolor, theme }) => ({
   color: "white",
-  boxShadow: `0px 0px 20px 5px ${theme.palette.primary.dark}`,
+  boxShadow: `0px 0px 20px 5px ${backgroundcolor ||theme.palette.primary.dark}`,
   borderRadius: "12px",
   backgroundColor: backgroundcolor || `${theme.palette.primary.light}`,
   marginLeft: "25px",
 
   ["&:hover"]: {
-    boxShadow: "0px 0px 30px 6px aqua",
+    boxShadow: `0px 0px 30px 6px ${backgroundcolor ||theme.palette.primary.light}`,
   },
 }))

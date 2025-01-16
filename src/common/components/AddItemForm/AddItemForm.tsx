@@ -7,12 +7,18 @@ import OutlinedInput from "@mui/material/OutlinedInput"
 import IconButton from "@mui/material/IconButton"
 import AddBoxIcon from "@mui/icons-material/AddBox"
 
-type Props = {
+export type AddItemFormProps = {
+    /** addItem - callback can be used to add new entity by "POST" request */
+    /**  callback will be called with item title as argument */
     addItem: (itemTitle: string) => void
+    /** helperText - text to be displayed below input */
     helperText?: string
+    /** disabled - if true, input and button will be disabled */
     disabled?: boolean
 }
-export const AddItemForm = ({ addItem, helperText, disabled }: Props) => {
+
+/** Component to add new item */
+export const AddItemForm = ({ addItem, helperText, disabled }: AddItemFormProps) => {
     const [itemTitle, setItemTitle] = useState<string>("")
     const [error, setError] = useState<string | null>(null)
 
