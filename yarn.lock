@@ -2086,14 +2086,14 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/addon-interactions@8.6.0-alpha.0":
-  version "8.6.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-interactions/-/addon-interactions-8.6.0-alpha.0.tgz#b8fc65eae635fafdd6f8b750b16dfdf5a2c37a9f"
-  integrity sha512-BMnWeKIqLwNx27BuY6h48Wdey5PqYLDLHLdUUwJ+7z8c+133WjmQzFhT6wOfTdnL9ykKwJMjJfHF1g8p2FFMug==
+"@storybook/addon-interactions@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-interactions/-/addon-interactions-8.5.0.tgz#467ab13beedb2bc3113a76b33c2105ce757a7ae8"
+  integrity sha512-vX1a8qS7o/W3kEzfL/CqOj/Rr6UlGLT/n0KXMpfIhx63tzxe1a1qGpFLL0h0zqAVPHZIOu9humWMKri5Iny6oA==
   dependencies:
     "@storybook/global" "^5.0.0"
-    "@storybook/instrumenter" "8.6.0-alpha.0"
-    "@storybook/test" "8.6.0-alpha.0"
+    "@storybook/instrumenter" "8.5.0"
+    "@storybook/test" "8.5.0"
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
@@ -2229,10 +2229,10 @@
   resolved "https://registry.yarnpkg.com/@storybook/icons/-/icons-1.3.0.tgz#a5c1460fb15a7260e0b638ab86163f7347a0061e"
   integrity sha512-Nz/UzeYQdUZUhacrPyfkiiysSjydyjgg/p0P9HxB4p/WaJUUjMAcaoaLgy3EXx61zZJ3iD36WPuDkZs5QYrA0A==
 
-"@storybook/instrumenter@8.6.0-alpha.0":
-  version "8.6.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.6.0-alpha.0.tgz#382e48743438cf1ae9fa3a095c27fb42a8576a2b"
-  integrity sha512-x4ey6Pmpri0VlHoVSw4XczHR6iQe7KZHL+M5+/DGrz5hQZf83puA+OVQEsqasBO0bTsTw/IdVqeP2ggUUVN2Cg==
+"@storybook/instrumenter@8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.5.0.tgz#e8c38ab912f2b7119cd92efe3977bc33246fa808"
+  integrity sha512-eZ/UY6w4U2vay+wX7QVwKiRoyMzZscuv6v4k4r8BlmHPFWbhiZDO9S2GsG16UkyKnrQrYk432he70n7hn1Xvmg==
   dependencies:
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
@@ -2314,14 +2314,14 @@
     "@storybook/react-dom-shim" "8.6.0-alpha.0"
     "@storybook/theming" "8.6.0-alpha.0"
 
-"@storybook/test@8.6.0-alpha.0":
-  version "8.6.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.6.0-alpha.0.tgz#ec7e00811e0432bab66c57aac93d4ca98a4278ec"
-  integrity sha512-pojaHEUoSJT0egqupQtohsvjyTsiDjLrZKkl7D9Sa6FWRMUoiNia6Hfglm0Qo9M4rxz4YVIvGJ3QQbkYnxTOXQ==
+"@storybook/test@8.5.0", "@storybook/test@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.5.0.tgz#d7157a87436000142cf6dedee37a74b86ad776f2"
+  integrity sha512-M/DdPlI6gwL7NGkK5o7GYjdEBp95AsFEUtW29zQfnVIAngYugzi3nIuM/XkQHunidVdAZCYjw2s2Yhhsx/m9sw==
   dependencies:
     "@storybook/csf" "0.1.12"
     "@storybook/global" "^5.0.0"
-    "@storybook/instrumenter" "8.6.0-alpha.0"
+    "@storybook/instrumenter" "8.5.0"
     "@testing-library/dom" "10.4.0"
     "@testing-library/jest-dom" "6.5.0"
     "@testing-library/user-event" "14.5.2"

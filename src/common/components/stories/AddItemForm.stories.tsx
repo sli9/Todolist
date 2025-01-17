@@ -2,6 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 import {AddItemForm} from "common/components";
 import {useState} from "react";
 import {AddItemFormProps} from "common/components/AddItemForm/AddItemForm";
+import {userEvent, within} from "@storybook/test";
 
 
 const meta = {
@@ -18,18 +19,24 @@ function renderFunc(args: AddItemFormProps) {
     const addItemHandler = (title: string) => setTitles((prevState) => [...prevState, title])
 
     return (
-        <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap'}}>
+        <div>
             <AddItemForm {...args} addItem={addItemHandler}/>
-            {titles.map(t => <div style={{
-                width: '250px',
-                border: '1px solid black',
-                display: titles ? 'block' : 'none',
-                marginTop: '100px',
-                padding: '10px',
+            <div style={{
+                display: titles.length ? 'flex' : 'none',
+                flexDirection: 'column',
+                gap: '10px',
+                marginTop: '30px',
             }}>
-                {t}
-            </div>)}
-
+                {titles.map((title, index) => <div key={index}
+                                                   style={{
+                                                       width: '250px',
+                                                       border: '1px solid black',
+                                                       padding: '10px',
+                                                   }}
+                >
+                    {title}
+                </div>)}
+            </div>
         </div>
     )
 }
@@ -48,27 +55,7 @@ export const Disabled: Story = {
     args: {
         disabled: true
     },
-    render: (args) => {
-        const [titles, setTitles] = useState<string[]>([])
-
-        const addItemHandler = (title: string) => setTitles((prevState) => [...prevState, title])
-
-        return (
-            <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap'}}>
-                <AddItemForm {...args} addItem={addItemHandler}/>
-                {titles.map(t => <div style={{
-                    width: '250px',
-                    border: '1px solid black',
-                    display: titles ? 'block' : 'none',
-                    marginTop: '100px',
-                    padding: '10px',
-                }}>
-                    {t}
-                </div>)}
-
-            </div>
-        )
-    }
+    render: renderFunc,
 };
 
 export const WithHelpText: Story = {
@@ -77,31 +64,16 @@ export const WithHelpText: Story = {
         helperText: "Description"
     },
 
-    render: args => {
-        const [titles, setTitles] = useState<string[]>([]);
-
-        const addItemHandler = (title: string) => setTitles(prevState => [...prevState, title]);
-
-        return (
-            (<div
-                style={{
-                    display: "flex",
-                    gap: "20px",
-                    flexWrap: "wrap"
-                }}>
-                <AddItemForm {...args} addItem={addItemHandler} />
-                {titles.map(t => <div
-                    style={{
-                        width: "250px",
-                        border: "1px solid black",
-                        display: titles ? "block" : "none",
-                        marginTop: "100px",
-                        padding: "10px"
-                    }}>
-                    {t}
-                </div>)}
-            </div>)
-        );
-    }
+    render: renderFunc,
 };
 
+// interactions
+export const AddEmptyItemExample: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        const addButton = canvas.getByRole('button');
+
+        await userEvent.click(addButton);
+    },
+};

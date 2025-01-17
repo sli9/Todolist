@@ -1,14 +1,19 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react"
 import TextField from "@mui/material/TextField"
 
-type Props = {
+export type EditableSpanProps = {
+    /** Current title */
     title: string
+    /** Class name for span styles */
     className?: string
+    /** If true, edit mode will be disabled */
     disable?: boolean
+    /** Callback to change title and send new title on server */
     changeTitle: (title: string) => void
 }
 
-export const EditAbleSpan = ({ className, title, changeTitle, disable }: Props) => {
+/** Component to edit span on double click */
+export const EditAbleSpan = ({ className, title, changeTitle, disable }: EditableSpanProps) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [newTitle, setNewTitle] = useState<string>(title)
 
@@ -44,7 +49,8 @@ export const EditAbleSpan = ({ className, title, changeTitle, disable }: Props) 
                     }}
                 />
             ) : (
-                <span className={className} onDoubleClick={() => setEditMode(true)}>
+                //data-testid for storybook
+                <span data-testid={"double-click-span"} className={className} onDoubleClick={() => setEditMode(true)}>
           {title}
         </span>
             )}

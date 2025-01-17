@@ -20,6 +20,8 @@
 .env.production.local
 
 /.yarn
+.yarnrc
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -8,12 +8,11 @@ import IconButton from "@mui/material/IconButton"
 import AddBoxIcon from "@mui/icons-material/AddBox"
 
 export type AddItemFormProps = {
-    /** addItem - callback can be used to add new entity by "POST" request */
-    /**  callback will be called with item title as argument */
+    /** Callback can be used to add new entity by "POST" request */
     addItem: (itemTitle: string) => void
-    /** helperText - text to be displayed below input */
+    /** Text to be displayed below input */
     helperText?: string
-    /** disabled - if true, input and button will be disabled */
+    /** If true, input and button will be disabled */
     disabled?: boolean
 }
 
