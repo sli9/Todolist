@@ -59,7 +59,7 @@ export const Header = () => {
           {isLoggedIn && <MenuButton onClick={logoutHandler}>logout</MenuButton>}
           <MenuButton>notifications</MenuButton>
           <MenuButton backgroundcolor={theme.palette.primary.dark}>settings</MenuButton>
-          <ColorModeSwitch onChange={ChangeThemeModeHandler} />
+          <ColorModeSwitch onChange={ChangeThemeModeHandler}/>
         </Box>
       </Toolbar>
       {appStatus === "loading" && <LinearProgress />}

@@ -1,9 +1,9 @@
 import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit"
 import {todolistsApi} from "../features/TodolistsList/api/todolistsApi";
 import {tasksApi} from "../features/TodolistsList/api/tasksApi";
+import {RequestStatus} from "common/types";
 
 export type ThemeMode = "dark" | "light"
-export type RequestStatus = "idle" | "loading" | "succeeded" | "failed"
 
 export const appSlice = createSlice({
   name: "app",

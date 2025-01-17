@@ -9,6 +9,9 @@ const meta = {
     tags: ['autodocs']
 } satisfies Meta<typeof EditAbleSpan>;
 
+export default meta;
+type Story = StoryObj<typeof EditAbleSpan>;
+
 function renderFunc(args: EditableSpanProps) {
     const [title, setTitle] = useState<string>(args.title)
 
@@ -18,9 +21,6 @@ function renderFunc(args: EditableSpanProps) {
         <EditAbleSpan {...args} title={title} changeTitle={changeTitleHandler}/>
     )
 }
-
-export default meta;
-type Story = StoryObj<typeof EditAbleSpan>;
 
 export const Default: Story = {
     args: {
